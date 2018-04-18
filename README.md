@@ -12,3 +12,9 @@ BlockChain in Python
 # Block No.20
 
 <img width="735" alt="screen shot 2018-04-18 at 12 22 32 am" src="https://user-images.githubusercontent.com/37820014/38911636-ac51f8ac-429e-11e8-9ffb-69f5b78d4c56.png">
+
+
+# Merkle Tree
+
+
+ref: https://brilliant.org/wiki/merkle-tree/
