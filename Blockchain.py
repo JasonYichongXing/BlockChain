@@ -27,14 +27,11 @@ class Block:
         self.previous_hash = INIT_PREV_HASH
         self.Nonce = INIT_NNONCE
         self.Info = Transaction_info
-        #self.Hash = self.GetHash()    ->Using @Property instead
         
-    @property            # a special type of attribute that calls a custom getter function when getting the value, 
-                         # so can make it dynamically update the value
+    @property            
     def Hash(self): 
         return self.GetHash()   
-        
-        
+            
     def GetHash(self):
         h = hashlib.sha256()
         h.update(
@@ -45,16 +42,13 @@ class Block:
                   str(self.Nonce), 'utf-8'))
         return h.hexdigest()
         
-    
     def __str__(self):
         return '\nBlock No: ' + str(self.BlockNo) + '\nBlock Hash: ' + str(self.Hash) + '\nPrevius Hash: ' + str(self.previous_hash) + '\nNonce: ' + str(self.Nonce) + '\nTransaction Info: ' + str(self.Info) + '\n============\n'
 
-####################################
-        
+####################################        
 def proof_of_work(block, Diff = INIT_DIFFICULTY):
     Diff_string = ''.join(['0' for _ in range(Diff)])
     return block.Hash[:Diff] == Diff_string
-
 
 def BlockChain_gen(N):
     BlockChain = []
@@ -76,12 +70,10 @@ def BlockChain_gen(N):
         BlockChain.append(Block_add)
 
     return BlockChain
-
 #####################################3
 #Test:    
 
 N = 20    
-
 Example = BlockChain_gen(N)
 
 for _ in BlockChain_gen(N):
@@ -89,4 +81,3 @@ for _ in BlockChain_gen(N):
 
 for _ in BlockChain_gen(N):
     print(_)
-
