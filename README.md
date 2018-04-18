@@ -10,11 +10,9 @@ BlockChain in Python
 <img width="715" alt="screen shot 2018-04-18 at 12 20 52 am" src="https://user-images.githubusercontent.com/37820014/38911590-6c183d28-429e-11e8-8534-26ed240cbe27.png">
 
 # Block No.20
-
 <img width="735" alt="screen shot 2018-04-18 at 12 22 32 am" src="https://user-images.githubusercontent.com/37820014/38911636-ac51f8ac-429e-11e8-9ffb-69f5b78d4c56.png">
 
 
 # Merkle Tree
-
-
+![7bd6fe56d9088a8efe8d22aaf9e47cb10d18ba9d](https://user-images.githubusercontent.com/37820014/38957393-8126cbfa-4328-11e8-94a6-62d150d2fad4.png)
 ref: https://brilliant.org/wiki/merkle-tree/
