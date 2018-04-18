@@ -70,7 +70,7 @@ def BlockChain_gen(N):
         BlockChain.append(Block_add)
 
     return BlockChain
-#####################################3
+#####################################
 #Test:    
 
 N = 20    
