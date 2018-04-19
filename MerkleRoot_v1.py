@@ -28,10 +28,15 @@ def get_root(transactions):    # main function to get the Merkle Tree root
 
 def _get_root(cur_list):        # recursive function to return the root
     if len(cur_list) != 1:
+        if len(cur_list) % 2 != 0:
+            cur_list.append('')
         tr_hash = [Encode_Hash(i) for i in cur_list]
         tr_new = []
         for i in range(0, len(cur_list)-1, 2):
             tr_new.append(tr_hash[i] + tr_hash[i+1])
+        
+        print(tr_new)
+        print('==============')
         
         _get_root(tr_new)
     else:
