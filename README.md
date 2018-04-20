@@ -16,3 +16,7 @@ BlockChain in Python
 # Merkle Tree
 ![7bd6fe56d9088a8efe8d22aaf9e47cb10d18ba9d](https://user-images.githubusercontent.com/37820014/38957393-8126cbfa-4328-11e8-94a6-62d150d2fad4.png)
 ref: https://brilliant.org/wiki/merkle-tree/
+
+
+# Update Block No.20 with Merkle Root
+<img width="729" alt="screen shot 2018-04-20 at 4 38 19 pm" src="https://user-images.githubusercontent.com/37820014/39072681-4c4a4c80-44b9-11e8-97a7-8197d73ef26c.png">
