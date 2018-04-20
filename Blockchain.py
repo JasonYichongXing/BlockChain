@@ -8,12 +8,14 @@ Created on Tue Apr 17 20:21:05 2018
 
 import hashlib
 import datetime
+from MkTreeClass import MerkleTree as MK
+
 
 INIT_DIFFICULTY = 2
-MAX_NONCE = 2**16
+MAX_NONCE = 2**32
 
 INIT_BlOCKNO = 0
-INIT_INFO = None
+INIT_INFO = ()
 INIT_NNONCE = 0
 INIT_PREV_HASH = 0
 INIT_TIMESTAMP = datetime.datetime(2018, 4, 17)
@@ -27,11 +29,14 @@ class Block:
         self.previous_hash = INIT_PREV_HASH
         self.Nonce = INIT_NNONCE
         self.Info = Transaction_info
+        self.MerkleRoot = MK.get_root(self.Info)
+        
         
     @property            
     def Hash(self): 
         return self.GetHash()   
-            
+        
+        
     def GetHash(self):
         h = hashlib.sha256()
         h.update(
@@ -39,28 +44,33 @@ class Block:
                   str(self.Info) +
                   str(self.nTime) +
                   str(self.previous_hash) +
+                  str(self.MerkleRoot) +
                   str(self.Nonce), 'utf-8'))
         return h.hexdigest()
-        
+    
+    
+    
     def __str__(self):
-        return '\nBlock No: ' + str(self.BlockNo) + '\nBlock Hash: ' + str(self.Hash) + '\nPrevius Hash: ' + str(self.previous_hash) + '\nNonce: ' + str(self.Nonce) + '\nTransaction Info: ' + str(self.Info) + '\n============\n'
+        return '\nBlock No: ' + str(self.BlockNo) + '\nBlock Hash: ' + str(self.Hash) + '\nPrevius Hash: ' + str(self.previous_hash) + '\nMerkleRoot: ' + str(self.MerkleRoot) + '\nNonce: ' + str(self.Nonce) + '\nTransaction Info: ' + str(self.Info) + '\n============\n'
 
-####################################        
+####################################
+        
 def proof_of_work(block, Diff = INIT_DIFFICULTY):
     Diff_string = ''.join(['0' for _ in range(Diff)])
     return block.Hash[:Diff] == Diff_string
 
+
 def BlockChain_gen(N):
     BlockChain = []
     
-    Genesis = Block('Genesis Block')
+    Genesis = Block(('Genesis Block'))
     
     BlockChain.append(Genesis)
     
     assert proof_of_work(Genesis) == False or INIT_DIFFICULTY ==0
 
     for n in range(1, N+1):
-        Block_add = Block('Block #' + str(n))
+        Block_add = Block(('Block #' + str(n)))
         Block_add.BlockNo = n
         Block_add.previous_hash = BlockChain[-1].Hash
         
@@ -70,10 +80,14 @@ def BlockChain_gen(N):
         BlockChain.append(Block_add)
 
     return BlockChain
-#####################################
+
+
+
+#####################################3
 #Test:    
 
 N = 20    
+
 Example = BlockChain_gen(N)
 
 for _ in BlockChain_gen(N):
@@ -81,3 +95,4 @@ for _ in BlockChain_gen(N):
 
 for _ in BlockChain_gen(N):
     print(_)
+
