@@ -22,9 +22,12 @@ class MerkleTree:
     
     
     def get_root(transactions):    # main function to get the Merkle Tree root
-        if len(transactions) % 2 != 0: transactions.append('')
         
-        tr_list = [pickle.dumps(i) for i in transactions]   #return type: bytes
+        new_transactions = transactions
+        if len(transactions) % 2 != 0: 
+            new_transactions = (*transactions, '')   #unpack the tuple
+        
+        tr_list = [pickle.dumps(i) for i in new_transactions]   #return type: bytes
         
         MerkleTree._get_root(tr_list)
          
@@ -43,5 +46,3 @@ class MerkleTree:
             tr_new.append(tr_hash[i] + tr_hash[i+1])
         
         MerkleTree._get_root(tr_new)
-        
-        
