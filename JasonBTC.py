@@ -57,7 +57,7 @@ class Block:
 ####################################
         
 def is_PoW(block, Diff = INIT_DIFFICULTY):
-    # return the hash if Prove_of_Word is confirmed under current difficulty.
+    # return the hash once Prove_of_Work is confirmed under current difficulty.
     
     Diff_string = ''.join(['0' for _ in range(Diff)])
     return block.Hash[:Diff] == Diff_string
@@ -74,7 +74,7 @@ def create_Genesis(BlockChain):
 
 
 def generate_newBlock(prev_block, new_Transaction):
-    # the new transaction info to be added must be a tuple.
+    # the new transaction info to be added must be a tuple for here.
     
     newBlock = Block(new_Transaction)
     
