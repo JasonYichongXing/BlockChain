@@ -5,7 +5,6 @@ Created on Tue Apr 17 20:21:05 2018
 
 @author: xingyichong
 """
-
 import hashlib
 import datetime
 from MkTreeClass import MerkleTree as MK
@@ -29,14 +28,16 @@ class Block:
         self.previous_hash = INIT_PREV_HASH
         self.Nonce = INIT_NNONCE
         self.Info = Transaction_info
-        self.MerkleRoot = MK.get_root(self.Info)
         
-        
-    @property            
+    @property   
     def Hash(self): 
         return self.GetHash()   
+
+    @property
+    def MerkleRoot(self):
+        return MK.get_root(self.Info)
         
-        
+           
     def GetHash(self):
         h = hashlib.sha256()
         h.update(
@@ -47,52 +48,53 @@ class Block:
                   str(self.MerkleRoot) +
                   str(self.Nonce), 'utf-8'))
         return h.hexdigest()
-    
-    
-    
+
     def __str__(self):
         return '\nBlock No: ' + str(self.BlockNo) + '\nBlock Hash: ' + str(self.Hash) + '\nPrevius Hash: ' + str(self.previous_hash) + '\nMerkleRoot: ' + str(self.MerkleRoot) + '\nNonce: ' + str(self.Nonce) + '\nTransaction Info: ' + str(self.Info) + '\n============\n'
 
+
+
 ####################################
         
-def proof_of_work(block, Diff = INIT_DIFFICULTY):
+def is_PoW(block, Diff = INIT_DIFFICULTY):
+    # return the hash if Prove_of_Word is confirmed under current difficulty.
+    
     Diff_string = ''.join(['0' for _ in range(Diff)])
     return block.Hash[:Diff] == Diff_string
 
 
-def BlockChain_gen(N):
-    BlockChain = []
+def create_Genesis(BlockChain):
+    # to create the Genesis block on a given empty chain.
     
-    Genesis = Block(('Genesis Block'))
-    
-    BlockChain.append(Genesis)
-    
-    assert proof_of_work(Genesis) == False or INIT_DIFFICULTY ==0
-
-    for n in range(1, N+1):
-        Block_add = Block(('Block #' + str(n)))
-        Block_add.BlockNo = n
-        Block_add.previous_hash = BlockChain[-1].Hash
-        
-        while not proof_of_work(Block_add) and Block_add.Nonce < MAX_NONCE:
-            Block_add.Nonce += 1
-    
-        BlockChain.append(Block_add)
-
+    if len(BlockChain) >0:
+        raise ValueError('\nThe Inital BlockChain should be empty, before create Genesis Block!')
+    Genesis = Block(('Genesis Block', 'This is the first one'))
+    BlockChain.append(Genesis)   
     return BlockChain
 
 
+def generate_newBlock(prev_block, new_Transaction):
+    # the new transaction info to be added must be a tuple.
+    
+    newBlock = Block(new_Transaction)
+    
+    newBlock.BlockNo = prev_block.BlockNo + 1
+    newBlock.previous_hash = prev_block.Hash
+    
+    while not is_PoW(newBlock) and newBlock.Nonce < MAX_NONCE:
+        newBlock.Nonce += 1
+        
+    return newBlock
 
-#####################################3
-#Test:    
 
-N = 20    
+def Generate_BlockChain(N):
+    # to generate a Chain with N blocks on a Genesis Block
+    
+    BlockChain = []
+    create_Genesis(BlockChain)
+    
+    for n in range(1, N+1):
+        newBlk = generate_newBlock(BlockChain[-1], ({'Name':'Block #'+ str(n), 'Amount': n*1000}))
+        BlockChain.append(newBlk)
 
-Example = BlockChain_gen(N)
-
-for _ in BlockChain_gen(N):
-    print(_.BlockNo, ': ', _.Hash)
-
-for _ in BlockChain_gen(N):
-    print(_)
-
+    return BlockChain
