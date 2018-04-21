@@ -7,7 +7,7 @@ Created on Sat Apr 21 16:28:27 2018
 """
 import math
 
-HANDLE_MISSING = ''  #  define the way handle the node without right child.
+HANDLE_MISSING = ''  #  define the way to handle the node without right child.
 
 class Tree:
     def __init__(self, value = None, left = None, right = None):
@@ -65,7 +65,7 @@ def Build_Tree(mystring):
 # Test:
 
 def main(mystring):
-    TreeDict = Build_Tree(x)
+    TreeDict = Build_Tree(mystring)
     for i in TreeDict:
         print(i,':', TreeDict[i])
         
