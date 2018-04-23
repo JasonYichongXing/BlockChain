@@ -1,0 +1,7 @@
+For Merkle Tree, can either store the value only into an array or store the Node(value, left_child, right_chid) into a list. 
+
+MerkleRoot_v1 is for calculating the merkle root only.
+
+MerkleTree.py is the class to save all value into an array.
+
+DataStr_MT is the one with self built Node class, which is not really efficient, will be improved later.
