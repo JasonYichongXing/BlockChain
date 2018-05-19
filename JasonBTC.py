@@ -59,7 +59,7 @@ class Block:
 def is_PoW(block, Diff = INIT_DIFFICULTY):
     # return the hash once Prove_of_Work is confirmed under current difficulty.
     
-    Diff_string = ''.join(['0' for _ in range(Diff)])
+    Diff_string = ''.join('0' for _ in range(Diff))
     return block.Hash[:Diff] == Diff_string
 
 
