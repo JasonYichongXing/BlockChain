@@ -66,7 +66,7 @@ def is_PoW(block, Diff = INIT_DIFFICULTY):
 def create_Genesis(BlockChain):
     # to create the Genesis block on a given empty chain.
     
-    if len(BlockChain) >0:
+    if BlockChain:
         raise ValueError('\nThe Inital BlockChain should be empty, before create Genesis Block!')
     Genesis = Block(('Genesis Block', 'This is the first one'))
     BlockChain.append(Genesis)   
