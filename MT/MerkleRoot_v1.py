@@ -12,7 +12,7 @@ import hashlib
 
 
 def Encode_Hash(string):    # to hash the string
-    if type(string) != bytes:
+    if not isinstance(string, bytes):
         string = string.encode('utf-8')
     return hashlib.sha256(string).hexdigest()
 
