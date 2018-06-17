@@ -7,6 +7,7 @@ Created on Tue Apr 17 20:21:05 2018
 """
 import hashlib
 import datetime
+
 from MkTreeClass import MerkleTree as MK
 
 
@@ -22,7 +23,7 @@ INIT_TIMESTAMP = datetime.datetime(2018, 4, 17)
 
 class Block:
         
-    def __init__(self, Transaction_info = INIT_INFO):
+    def __init__(self, Transaction_info=INIT_INFO):
         self.BlockNo = INIT_BlOCKNO
         self.nTime = INIT_TIMESTAMP
         self.previous_hash = INIT_PREV_HASH
@@ -54,17 +55,17 @@ class Block:
 
 
 
-####################################
+#######################################
         
-def is_PoW(block, Diff = INIT_DIFFICULTY):
-    # return the hash once Prove_of_Work is confirmed under current difficulty.
+def is_PoW(block, Diff=INIT_DIFFICULTY):
+    """ return the hash once Prove_of_Work is confirmed under current difficulty."""
     
     Diff_string = ''.join('0' for _ in range(Diff))
     return block.Hash[:Diff] == Diff_string
 
 
 def create_Genesis(BlockChain):
-    # to create the Genesis block on a given empty chain.
+    """ to create the Genesis block on a given empty chain."""
     
     if BlockChain:
         raise ValueError('\nThe Inital BlockChain should be empty, before create Genesis Block!')
@@ -74,7 +75,7 @@ def create_Genesis(BlockChain):
 
 
 def generate_newBlock(prev_block, new_Transaction):
-    # the new transaction info to be added must be a tuple for here.
+    """ the new transaction info to be added must be a tuple for here."""
     
     newBlock = Block(new_Transaction)
     
@@ -88,8 +89,8 @@ def generate_newBlock(prev_block, new_Transaction):
 
 
 def Generate_BlockChain(N):
-    # to generate a Chain with N blocks on a Genesis Block
-    
+    """to generate a Chain with N blocks on a Genesis Block"""
+
     BlockChain = []
     create_Genesis(BlockChain)
     
